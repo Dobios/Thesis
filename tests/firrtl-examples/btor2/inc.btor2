@@ -1,0 +1,15 @@
+1 sort bitvec 32
+2 input 1 a
+3 constd 1 0
+4 sort bitvec 1
+5 constd 4 0
+6 constd 4 -1
+7 sort bitvec 33
+8 concat 7 5 2
+9 constd 7 1
+10 add 7 8 9
+11 slice 1 10 31 0
+12 ult 4 11 2
+13 not 4 12
+14 bad 13
+

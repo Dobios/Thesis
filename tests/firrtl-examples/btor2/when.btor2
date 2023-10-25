@@ -1,0 +1,28 @@
+1 sort bitvec 32
+2 input 1 a
+3 constd 1 0
+4 sort bitvec 31
+5 constd 4 0
+6 sort bitvec 1
+7 constd 6 0
+8 constd 1 23
+9 sort bitvec 2
+10 constd 9 -2
+11 constd 6 -1
+12 constd 1 0
+13 ugt 6 3 12
+14 ult 6 3 8
+15 sort bitvec 33
+16 concat 15 7 3
+17 constd 15 1
+18 add 15 16 17
+19 slice 1 18 31 0
+20 concat 15 7 3
+21 constd 15 2
+22 add 15 20 21
+23 slice 1 22 31 0
+24 ite 1 14 19 23
+25 ugt 6 24 3
+26 constraint 13
+27 not 6 25
+28 bad 27

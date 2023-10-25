@@ -8,7 +8,7 @@ circuit inc:
     wire en: UInt<1>
     b <= add(a, UInt<1>("h1"))
     en <= UInt<1>("h1")
-    pred <= gt(b, a)
+    pred <= lt(b, a)
     assert(clk, pred, en, "a + 1 should be greater than a")
 
 
