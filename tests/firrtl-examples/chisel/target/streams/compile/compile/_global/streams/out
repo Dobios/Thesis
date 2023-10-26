@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/counter.scala:17:42: value emitFIRRTLDialect is not a member of chisel3.stage.ChiselStage[0m
+[0m[[0m[31merror[0m] [0m[0m  val firrtl: String = (new ChiselStage).emitFIRRTLDialect(new Counter(), pretty)[0m
+[0m[[0m[31merror[0m] [0m[0m                                         ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

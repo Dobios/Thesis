@@ -1,0 +1,19 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/chisel_2.13-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CounterDriver.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/CounterDriver.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	IncDriver.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/IncDriver.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Counter.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/Counter.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CounterDriver$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/CounterDriver$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CounterDriver$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/CounterDriver$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	IncDriver$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/IncDriver$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Inc.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/Inc.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	IncDriver$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/amelia/Desktop/Thesis/tests/firrtl-examples/chisel/target/scala-2.13/classes/IncDriver$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m

@@ -1,0 +1,18 @@
+1 sort bitvec 1
+2 input 1 reset
+3 sort bitvec 32
+4 input 3 a
+5 input 1 en
+6 constd 3 0
+7 constd 1 0
+8 constd 1 -1
+9 sort bitvec 33
+10 concat 9 7 5
+11 constd 9 1
+12 add 9 10 11
+13 slice 3 12 31 0
+14 ugt 1 13 5
+15 xor 1 4 8
+16 constd 1 -1
+17 xor 1 14 16
+18 and 1 15 17

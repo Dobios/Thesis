@@ -1,0 +1,13 @@
+[
+  {
+    "class":"firrtl.CustomDefaultMemoryEmission",
+    "initValue":{
+      
+    }
+  },
+  {
+    "class":"firrtl.CustomDefaultRegisterEmission",
+    "useInitAsPreset":false,
+    "disableRandomization":true
+  }
+]

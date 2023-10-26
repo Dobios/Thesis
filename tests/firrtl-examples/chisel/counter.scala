@@ -1,6 +1,7 @@
 import chisel3._
 import chisel3.stage.ChiselStage
 
+
 class Counter extends Module {
     val en = IO(Input(Bool()))
     val count = RegInit(0.U(32.W))
@@ -9,7 +10,9 @@ class Counter extends Module {
     assert(count =/= 10.U)
 }
 
-val pretty = Array(
-  "--emission-options", "disableMemRandomization,disableRegisterRandomization"
-)
-println((new ChiselStage).emitChirrtl(new Counter(), pretty))
+object CounterDriver extends App {
+  val pretty = Array(
+    "--emission-options", "disableMemRandomization,disableRegisterRandomization"
+  )
+  val firrtl: String = (new ChiselStage).emitCHIRRTL(new Counter(), pretty)
+}

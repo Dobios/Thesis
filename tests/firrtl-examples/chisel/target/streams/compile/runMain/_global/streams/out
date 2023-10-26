@@ -1,0 +1,13 @@
+[0m[[0m[31merror[0m] [0m[0mjava.lang.IllegalArgumentException: requirement failed: Too many arguments! More format specifier(s) expected![0m
+[0m[[0m[31merror[0m] [0m[0m    fmt = "b shoudl always be bigger than a"[0m
+[0m[[0m[31merror[0m] [0m[0m                                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m    data = Inc.b: OpResult[UInt<32>], Inc.a: IO[UInt<32>][0m
+[0m[[0m[31merror[0m] [0m[0m	at ... ()[0m
+[0m[[0m[31merror[0m] [0m[0m	at Inc.<init>(inc.scala:10)[0m
+[0m[[0m[31merror[0m] [0m[0m	at IncDriver$.$anonfun$firrtl$1(inc.scala:17)[0m
+[0m[[0m[31merror[0m] [0m[0m	at ... ()[0m
+[0m[[0m[31merror[0m] [0m[0m	at ... (Stack trace trimmed to user code only. Rerun with --full-stacktrace to see the full stack trace)[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mrunMain[0m) java.lang.IllegalArgumentException: requirement failed: Too many arguments! More format specifier(s) expected![0m
+[0m[[0m[31merror[0m] [0m[0m    fmt = "b shoudl always be bigger than a"[0m
+[0m[[0m[31merror[0m] [0m[0m                                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m    data = Inc.b: OpResult[UInt<32>], Inc.a: IO[UInt<32>][0m
