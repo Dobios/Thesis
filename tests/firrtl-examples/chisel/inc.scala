@@ -7,7 +7,7 @@ class Inc extends Module {
 
     val b = a + 1.U
 
-    assert(b > a, "b should always be bigger than a")
+    assert(b > a, "a + 1 should always be bigger than a")
 }
 
 object IncDriver extends App {
