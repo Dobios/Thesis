@@ -30,6 +30,7 @@ echo " "
 cat tmp_fir.mlir
 
 # Step 2: Convert mlir fir to hw
+#circt-opt --lower-firrtl-to-hw --arc-inline-modules tmp_fir.mlir >> tmp_hw.mlir
 circt-opt --lower-firrtl-to-hw tmp_fir.mlir >> tmp_hw.mlir
 echo " "
 echo "===================="
