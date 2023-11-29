@@ -45,7 +45,7 @@ echo "===================="
 echo "Output from LowerHWtoBTOR2:"       
 echo "===================="
 echo " "
-circt-opt --arc-inline-modules --hw-lower-to-botr2 tmp_hw.mlir
+circt-opt --arc-inline-modules --convert-hw-to-btor2 tmp_hw.mlir
 #circt-opt --hw-lower-to-botr2 tmp_hw.mlir
 
 # Clean-up tmp files
