@@ -1,0 +1,219 @@
+<!-- Based on a poster template from https://github.com/cpitclaudel/academic-poster-template -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Formal Verification of Hardware using MLIR — SLICE Winter retreat 2024</title>
+    <link rel="icon" href="figs/logos/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1">
+
+    <!-- MathJax -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml-full.min.js" integrity="sha512-PbLRl9V4qEM7j3xggKupLNdcodHT0w+x77S/JoTWxrhPEVZ0NkTPp90bzUeTyFXsBzsaApVOZdCHIzL6o51KiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- highlight.js -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/mono-blue.min.css" integrity="sha512-9MaxPqXjPueWIGbV9cvVzkGnBxywb1kSNUtjm5Ttnk0ltKD23voJdHxAh6y9k10CwWwrFiFn49FG88KZuFzbTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" integrity="sha512-bgHRAiTjGrzHzLyKOnpFvaEpGzJet3z4tZnXGjpsCcqOnAH6VGUx9frc5bcIhKTVLEiCO6vEhNAgx5jtLUYrfA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/scala.min.js" integrity="sha512-V270YlcVZGteVNcd3wOMtRGK/UBHMZKx7/UR9bcQx4jhg8MkWcfHrCQlEbhlBu6MhHRa88bOBPbfxfqVUO3fOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/verilog.min.js" integrity="sha512-4xzKcnOhXeYySC/PneV7sO832OyA5c0IYis5M6OQ6Bncw3F85K+xJk2uh4WNZSWONWBRKlxMPhJe3MmmgVWccw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script defer>hljs.highlightAll();</script>
+
+    <!-- fonts -->
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    
+      </head>
+
+  <body vocab="http://schema.org/" typeof="ScholarlyArticle">
+    <header role="banner">
+      <aside>
+          <a href="https://slice.eecs.berkeley.edu/"><img src="figs/logos/slice_logo.png" alt="SLICE Lab"></a>
+      </aside>
+      <div>
+        <h1 property="headline">Formal Verification of Hardware using MLIR</h1>
+                <address>
+              <a property="author">Amelia Dobis<sup>a, b</sup></a>,
+  <a property="author">Kevin Laeufer<sup>b</sup></a>
+          <br />            <sup>a</sup><a property="sourceOrganization">ETH Zurich</a>,
+  <sup>b</sup><a property="sourceOrganization">University of California, Berkeley</a>
+        </address>
+        <span class="publication-info">
+                      <span property="publisher">SLICE Winter retreat 2024</span>,
+            <time pubdate property="datePublished" datetime="2024-01-10">January 10, 2024</time>
+                  </span>
+      </div>
+              <aside>
+            <a href="https://berkeley.edu"><img src="figs/logos/berkeley_logo.svg" alt="UC Berkeley"></a>
+        </aside>
+          </header>
+
+    <main property="articleBody">
+      <article>
+<header><h3>Motivation</h3></header>
+<ul>
+  <li>Lack of open-source verification support for Linear Temporal Logic (LTL).</li>
+  <li>Verification needs to go through external commercial tools for SystemVerilog.</li>
+  <li>We need direct support for complex specification in high level hardware languages like Chisel.</li>
+</ul>
+</article>
+
+<article>
+<header><h3>Background: CIRCT</h3></header>
+<ul>
+  <li>Circuit IR Compilers and Tools</li>
+  <li>MLIR-based Hardware compilation framework.</li>
+  <li>Supports many front-ends including Chisel and backends including SystemVerilog.</li>
+  <li>Set of dialects that represent various representations, core dialects are a generalized representation of hardware.</li>
+</ul>
+</article>
+
+<article>
+<header><h3>Background: Bounded Model Checking (BMC)</h3></header>
+<ul>
+  <li>Method for formally verifying hardware, based in mathematically modeling the design and proving that assertions hold.</li>
+  <li><u>BMC</u>: Convert circuit into a <strong>state-transition system</strong>, where each state is a combinatorial unrolling of the circuit for a given set of values assigned to its registers.</li>
+  <li><u>Verifying Combinatorial Circuits</u>: Core of BMC, convert circuit and assertion into an SMT formula.</li>
+</ul>
+<img src="./figs/circt-formal/understand-BMC.svg" style="width: 80%;" />
+<figcaption>
+Translation of a dummy design into an SMT formula. The goal is to find an assignment to the formula such that the assertion fails. 
+If such an assignment exists that the solver returns SAT and the counterexample, otherwise it returns UNSAT.
+</figcaption>
+</article>
+
+<article>
+<header><h3>Our Solution: Formal Verification with CIRCT</h3></header>
+<ul>
+  <li><u>Goal</u>: Enable Formal Verification in CIRCT front-ends using BMC and complex specifications. </li>
+  <li><u>Two main parts</u>:<ol>
+    <li>Formal Backend for CIRCT</li>
+    <li>Enable Linear Temporal Logic (LTL) in the formal backend</li>
+  </ol>	
+</li>
+</ul>
+</article>
+
+
+<article>
+<header><h3>-1- Formal Backend for CIRCT</h3></header>
+<img src="./figs/circt-formal/formalbackend.svg" style="width: 80%;" />
+<figcaption>
+The formal backend converts CIRCT's frontends into a btor2 format with can be used for bounded model checking using <code>btormc</code>.
+Btor2 allows us to encode state transition systems and smt logic explicitly.
+</figcaption>
+<ul>
+  <li>A conversion pass was added to CIRCT to emit btor2 from the core dialects.</li>
+  <li>Can be used through: <code>circt-opt --convert-hw-to-btor2 name.mlir</code></li>
+</ul>
+</article>
+
+
+
+<article>
+<header><h3>-2- SVA sequences with CIRCT</h3></header>
+<ul>
+  <li><u>Goal</u>: Enable SVA sequences to be expressed in CIRCT's formal backend.</li>
+  <li><u>How</u>:<ol>
+    <li>Conversion of LTL dialect into a Büchi automaton form.</li>
+    <li>Optimization and node collapse in automaton form.</li>
+    <li>Conversion from Büchi automaton to FSM.</li>
+    <li>Conversion from FSM to synthesizable hardware.</li>
+  </ol></li>
+</ul>
+</article>
+
+<article>
+<header><h3>-2.1- SVA Sequence to Automata Conversion</h3></header>
+<img src="./figs/circt-formal/automatonConversion.svg" style="width: 80%;" />
+<figcaption>
+Example of a sequence being converted first into a non-deterministic Büchi automaton then into a deterministic one.
+Conversion is straightforward in the case of delay sequences, as it is equivalent to shift registers.
+Some optimizations can be done in the non-deterministic states in order to avoid state explosion.
+</figcaption>
+</article>
+
+
+<article>
+<header><h3>-2.2- Less trivial conversions</h3></header>
+<img src="./figs/circt-formal/spot-non-overlap.svg" style="width: 80%;" />
+<figcaption>
+Conversion of a more complex expression know as "non-overlapping implication" <code>a |=> b</code>, which expresses that a implies that b holds 1 cycle later.
+</figcaption>
+</article>
+
+<article>
+<header>-2.3- Nested Sequences</header>
+<img src="./figs/circt-formal/nested-sequences.svg" style="width: 80%;" />
+<figcaption>
+Nesting sequences causes a large state explosion and the translation is far less straightforward. 
+This automaton simply models <code>(a |=> b) |=> (c |=> d)</code>.
+</figcaption>
+</article>
+
+<article>
+<header><h3>Our Solution: General Translation of LTL to Automata</h3></header>
+<ul>
+  <li><u>Idea</u>: Split nested sequence into simple sub-sequences and merge their automata together (mix of Yosys's technique and [1]).
+  <ol>
+    <li>Create basic sequences out of a nested sequence.</li>
+    <li>Convert the basic sequences into automata.</li>
+    <li>Define <strong>merge operations</strong> for operations connecting two automata.</li>
+    <li>Iteratively merge all sub-sequences in a DFS order.</li>
+    <li>Collapse duplicate nodes and transitions.</li>
+  </ol>
+  </li>
+</ul>
+</article>
+
+
+<article>
+<header><h3>Our Solution: Implementation in CIRCT</h3></header>
+<img src="./figs/circt-formal/circt-ltl-flow.svg" width=70% />
+<figcaption>
+Our implementation in CIRCT introduces a new dialect to encode arbitrary automata, as well as conversion passes: 
+<code>ltl -> automata</code>, <code>automata -> fsm</code>, <code>fsm -> core</code>, and potentially also <code>automata -> core</code>.
+Once the automata have been represented as synthesizable hardware in the core dialects they can be converted to btor2 using the formal backend.
+</figcaption>
+</article>
+
+<article>
+  <header><h3>What is this for?</h3></header>
+  <img src="./figs/circt-formal/circt-formal-use.svg" width=70% />
+  <figcaption>
+  Using our solution, one could express things like non-overlapping implication directly in Chisel and then directly use circt convert the design into a btor2 format that can be checked using btormc.
+  This allows us to perform specification-driven verification directly in our high level hardware languages.
+  </figcaption>
+</article>
+
+<article>
+  <header><h3>References</h3></header>
+  <ul><li>[1] Javier Esparza, Jan Křetínský, and Salomon Sickert. 2020. A Unified Translation of Linear Temporal Logic to ω-Automata. J. ACM 67, 6, Article 33 (December 2020), 61 pages. https://doi.org/10.1145/3417995</li></ul>
+</article>
+
+
+    </main>
+
+    <footer>
+      <aside>
+          <address class="monospace" style="font-weight:400;">
+    <a href="https://github.com/llvm/circt">https://github.com/llvm/circt</a>
+  </address>
+      </aside>
+      <div>
+          <address class="monospace" style="font-weight:400;">
+    adobis@berkeley.edu,
+    laeufer@berkeley.edu
+  </address>
+      </div>
+      <aside>
+          <address>
+    SLICE Winter Retreat 2024
+  </address>
+      </aside>
+    </footer>
+  </body>
+</html>
