@@ -19,7 +19,7 @@ cat $1
 
 # Assume it's a .fir and that circt-opt firtool and arcilator are in the path
 # Step 1: Convert .fir to firrtl mlir dialect
-firtool --ir-fir $1 >> tmp_fir.mlir
+firtool --format=fir --ir-fir  $1 >> tmp_fir.mlir
 
 # Print out firrtl ir
 echo " "

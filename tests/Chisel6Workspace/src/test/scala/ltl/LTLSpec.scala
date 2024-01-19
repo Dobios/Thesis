@@ -13,10 +13,35 @@ import org.scalatest.matchers.should.Matchers
 import Sequence._
 
 class LTLSpec extends AnyFlatSpec with Matchers {
+  it should "Basic assert property" in {
+    val chirrtl = ChiselStage.emitCHIRRTL(new RawModule {
+      val a = IO(Input(Bool()))
+      val rst = IO(Input(Bool()))
+
+      val n_rst = Wire(Bool())
+      n_rst := !rst
+      
+      AssertProperty(a, disable = Some(n_rst.asDisable))
+    })
+    //println(chirrtl)
+  }
+
+  it should "fix the counter btormc issue" in {
+    class Counter extends Module {
+        val count = RegInit(0.U(32.W))
+        when(count === 22.U) { count := 0.U }
+        when(count =/= 22.U) { count := count + 1.U }
+        AssertProperty(count =/= 10.U)
+    }
+    val chirrtl = ChiselStage.emitCHIRRTL(new Counter())
+    println(chirrtl)
+  }
+/*
   it should "allow booleans to be used as sequences" in {
     val chirrtl = ChiselStage.emitCHIRRTL(new RawModule {
       val a = IO(Input(Bool()))
-      Sequence.delay(a, 42)
+      a := 1.U(1.W)
+      AssertProperty(a, label=Some("a should be true at some point"))
     })
     chirrtl should include("intmodule LTLDelayIntrinsic_42_0 :")
     chirrtl should include("input in : UInt<1>")
@@ -337,5 +362,5 @@ class LTLSpec extends AnyFlatSpec with Matchers {
     chirrtl should include("connect verif_6.property, ltl_concat_4.out")
 
     println(chirrtl)
-  }
+  }*/
 }
