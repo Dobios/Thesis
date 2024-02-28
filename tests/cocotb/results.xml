@@ -1,0 +1,13 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1709078721" />
+    <testcase name="test01" classname="testnoiltl" file="/home/amelia/Desktop/Thesis/tests/cocotb/testnoiltl.py" lineno="16" time="0.002071857452392578" sim_time_ns="10.001" ratio_time="4827.069540161105" />
+    <testcase name="test11" classname="testnoiltl" file="/home/amelia/Desktop/Thesis/tests/cocotb/testnoiltl.py" lineno="29" time="0.0010023117065429688" sim_time_ns="10.001" ratio_time="9977.933944814462" />
+    <testcase name="test10" classname="testnoiltl" file="/home/amelia/Desktop/Thesis/tests/cocotb/testnoiltl.py" lineno="43" time="0.0009341239929199219" sim_time_ns="10.001000000000001" ratio_time="10706.287469116898">
+      <failure message="Test failed with RANDOM_SEED=1709078721" />
+    </testcase>
+    <testcase name="testoverlapp" classname="testnoiltl" file="/home/amelia/Desktop/Thesis/tests/cocotb/testnoiltl.py" lineno="58" time="0.0014719963073730469" sim_time_ns="10.000999999999998" ratio_time="6794.174652413345">
+      <failure message="Test failed with RANDOM_SEED=1709078721" />
+    </testcase>
+  </testsuite>
+</testsuites>

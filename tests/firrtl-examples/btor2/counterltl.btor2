@@ -2,33 +2,40 @@
 2 input 1 reset
 3 sort bitvec 32
 4 state 3 count
-5 sort bitvec 28
-6 constd 5 0
-7 constd 1 0
-8 sort bitvec 27
+5 constd 1 0
+6 state 1 hbr
+7 init 1 6 5
+8 sort bitvec 28
 9 constd 8 0
-10 constd 3 0
-11 sort bitvec 5
-12 constd 11 -10
-13 constd 1 -1
-14 sort bitvec 4
-15 constd 14 -6
-16 constd 3 22
-17 eq 1 4 16
-18 ite 3 17 10 4
-19 sort bitvec 33
-20 concat 19 7 4
-21 constd 19 1
-22 add 19 20 21
-23 slice 3 22 31 0
-24 constd 3 22
-25 eq 1 4 24
-26 ite 3 25 18 23
-27 constd 3 10
-28 neq 1 4 27
-29 zero 1
-30 ite 1 2 29 28
-31 not 1 30
-32 bad 31
-33 ite 3 2 10 26
-34 next 3 4 33
+10 constd 1 0
+11 sort bitvec 27
+12 constd 11 0
+13 constd 3 0
+14 sort bitvec 5
+15 constd 14 -10
+16 constd 1 -1
+17 sort bitvec 4
+18 constd 17 -6
+19 constd 3 22
+20 eq 1 4 19
+21 ite 3 20 13 4
+22 sort bitvec 33
+23 concat 22 10 4
+24 constd 22 1
+25 add 22 23 24
+26 slice 3 25 31 0
+27 constd 3 22
+28 eq 1 4 27
+29 ite 3 28 21 26
+30 constd 3 10
+31 neq 1 4 30
+32 or 1 2 6
+33 xor 1 6 16
+34 or 1 33 31
+35 not 1 34
+36 bad 35
+37 ite 3 2 13 29
+38 next 3 4 37
+39 zero 1
+40 ite 1 2 39 32
+41 next 1 6 40

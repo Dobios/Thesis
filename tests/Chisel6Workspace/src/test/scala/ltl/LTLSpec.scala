@@ -13,7 +13,7 @@ import org.scalatest.matchers.should.Matchers
 import Sequence._
 
 class LTLSpec extends AnyFlatSpec with Matchers {
-  it should "Basic assert property" in {
+  /*it should "Basic assert property" in {
     val chirrtl = ChiselStage.emitCHIRRTL(new RawModule {
       val a = IO(Input(Bool()))
       val rst = IO(Input(Bool()))
@@ -34,8 +34,63 @@ class LTLSpec extends AnyFlatSpec with Matchers {
         AssertProperty(count =/= 10.U)
     }
     val chirrtl = ChiselStage.emitCHIRRTL(new Counter())
+    //println(chirrtl)
+  }*/
+
+  it should "generate noi firrtl" in {
+    class Counter extends Module {
+      val count = RegInit(0.U(5.W))
+
+      when(count =/= 22.U) {count := count + 1.U}
+      when(count === 22.U) {count := 0.U}
+
+      AssertProperty(Sequence.concat(count > 0.U, (count > 3.U).delay(3), count < 10.U))
+    }
+    val chirrtl = ChiselStage.emitCHIRRTL(new Counter())
+    //println(chirrtl)
+  }
+
+  it should "generate basic concat and delay example" in {
+    class Basic extends Module {
+      val a, b, c = IO(Input(Bool()))
+      AssertProperty(Sequence.concat(a, b.delay(3), c))
+    }
+    
+  }
+
+  it should "generate a concatenation of two sequences" in {
+    class Concat extends Module {
+      val a, b, c, d = IO(Input(Bool()))
+      val s1: Sequence = Sequence.concat(a, b.delay(1))
+      val s2: Sequence = Sequence.concat(c, d.delay(1))
+      AssertProperty(Sequence.concat(s1, s2))
+    }
+  }
+
+  it should "generate a non overlapping implication of two booleans" in {
+    class NOI extends Module {
+      val a, b = IO(Input(Bool()))
+      AssertProperty(a |=> b)
+    }
+    val chirrtl = ChiselStage.emitCHIRRTL(new NOI())
     println(chirrtl)
   }
+
+  /*it should "generate a mutli-alias example" in {
+    class Alias extends Module {
+      val in = IO(Input(Bool()))
+      val count = RegInit(0.U(32.W))
+      val b = Wire(UInt(33.W))
+      val c = Wire(UInt(33.W))
+      val out = IO(Output(UInt(32.W)))
+      b := count + 1.U
+      c := b & 1.U
+      when(in) {count := b}.otherwise {count := c}
+      out := count
+    }
+    val chirrtl = ChiselStage.emitCHIRRTL(new Alias())
+    //println(chirrtl)
+  }*/
 /*
   it should "allow booleans to be used as sequences" in {
     val chirrtl = ChiselStage.emitCHIRRTL(new RawModule {

@@ -1,11 +1,14 @@
 module {
-  hw.module @LTLSpec_Anon(in %a : i1, in %rst : i1) {
-	%true = hw.constant true
-	%x2 = hw.wire %0  : i1
-	%0 = comb.xor bin %rst, %true {sv.namehint = "_n_rst_T"} : i1
-	%1 = hw.wire %x2  : i1
-	%2 = ltl.disable %a if %1 : i1
-	verif.assert %2 : !ltl.property
-	hw.output
+   hw.module @test(in %clock : !seq.clock, in %reset : i1, in %8 : i1) {
+    %0 = seq.from_clock %clock 
+    %true = hw.constant true
+    %9 = verif.has_been_reset %0, sync %reset
+    %10 = comb.xor bin %9, %true : i1
+    %11 = hw.wire %8 : i1
+    %12 = hw.wire %10 : i1
+    %13 = ltl.disable %11 if %12 : i1
+    %14 = ltl.clock %13, posedge %0 : !ltl.property
+    verif.assert %14 : !ltl.property
+    hw.output
   }
 }
