@@ -1,0 +1,10 @@
+.metals/*
+*/.metals/*
+**/.metals/*
+project/*
+*/project/*
+__pycache__
+__pycache__/*
+*/__pycache__/*
+*/*.pyc
+*/*.pyo
