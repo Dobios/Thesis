@@ -1,3 +1,6 @@
 [submodule "tests/tests/SVExhaustiveTester"]
 	path = tests/tests/SVExhaustiveTester
 	url = git@github.com:Dobios/SVExhaustiveTester.git
+[submodule "tests/SVExhaustiveTester"]
+	path = tests/SVExhaustiveTester
+	url = git@github.com:Dobios/SVExhaustiveTester.git
